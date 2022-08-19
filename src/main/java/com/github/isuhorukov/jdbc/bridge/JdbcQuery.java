@@ -10,13 +10,7 @@ public class JdbcQuery {
 
     public static ResultSetHandle selectWithParams(String driverClass, String url, String user, String password,
                                                    String selectSQL, Object... params) throws SQLException {
-        if(driverClass!=null && !driverClass.isEmpty()){
-            try {
-                Class.forName(driverClass);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException("Driver "+driverClass+" not found", e);
-            }
-        }
+        JdbcUtils.initDriver(driverClass);
         Connection connection = DriverManager.getConnection(url, user, password);
         return new Query(connection, selectSQL, params);
     }
