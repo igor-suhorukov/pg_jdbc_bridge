@@ -27,7 +27,7 @@ public class Query implements ResultSetHandle {
                 preparedStatement.setObject(idx+1, params[idx]);
             }
         }
-        return preparedStatement.executeQuery();
+        return new ResultSetWrapper(preparedStatement.executeQuery());
     }
 
     @Override
